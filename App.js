@@ -1,4 +1,5 @@
 import AppLoading from 'expo-app-loading';
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Home } from './src/screens';
 import { ThemeProvider } from 'styled-components';
 import { theme } from './src/styles';
@@ -10,6 +11,8 @@ import {
   SourceSansPro_900Black
 } from '@expo-google-fonts/source-sans-pro';
 import { Routes } from './src/routes';
+
+// AsyncStorage.clear()
 
 export default function App() {
 

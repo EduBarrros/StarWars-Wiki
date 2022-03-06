@@ -8,4 +8,5 @@ export const CustomText = styled.Text`
     margin-left: ${({ theme, ml }) => theme.metrics.px(ml || 0)}px;
     margin-right: ${({ theme, mr }) => theme.metrics.px(mr || 0)}px;
     font-family: ${({ theme, fontFamily }) => theme.fonts[ fontFamily ||  'regular']};
-`;
+    line-height: ${({ theme,size, lh }) => theme.metrics.px(lh || size || 24)}px;
+    `;
