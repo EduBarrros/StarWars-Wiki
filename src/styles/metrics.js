@@ -14,5 +14,6 @@ const px = (valuePx) => {
 
 export const metrics = {
     px,
+    width
 }
 

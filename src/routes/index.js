@@ -4,7 +4,14 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { BottomBar } from '~/components';
 
-import { Home, SplashScreen, Detail, SearchScreen, FavoritesScreen } from '../screens';
+import {
+    Home,
+    SplashScreen,
+    Detail,
+    SearchScreen,
+    FavoritesScreen,
+    WatchScreen
+} from '../screens';
 
 
 const BottomRoute = () => {
@@ -53,6 +60,10 @@ export const Routes = () => {
                 <Stack.Screen
                     name='Detail'
                     component={Detail}
+                />
+                <Stack.Screen
+                    name='Watch'
+                    component={WatchScreen}
                 />
             </Stack.Navigator>
         </NavigationContainer>

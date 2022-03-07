@@ -7,9 +7,9 @@ import { Ionicons } from '@expo/vector-icons';
 export const PlayButton = ({ onPress }) => {
     return (
         <ButtonContainer onPress={onPress}>
-            <Ionicons name={'play'} size={theme.metrics.px(12)} color={theme.colors.black} />
-            <Text fontFamily='bold' size={14} color='black'>
-                Play
+            <Ionicons name={'play'} size={theme.metrics.px(14)} color={theme.colors.black} />
+            <Text fontFamily='bold' size={14} color='black' ml={4} mt={2}>
+                Assistir
             </Text>
         </ButtonContainer>
     )
