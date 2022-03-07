@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { HeroContainer, HeroImageBackground, HeroGradient, ButtonsView } from "./styles";
 import { colors } from '~/styles/colors'
 import { Text, Logo } from "~/components/atoms";
-import { Tag, IconButton, PlayButton } from "~/components/molecules";
+import { Tag, IconButton, PlayButton, FavoritesStateModal } from "~/components/molecules";
 import { useFavorites } from "~/services/hooks";
 import { useNavigation } from "@react-navigation/native";
 import { useDataStore } from "~/services/stores";
@@ -13,6 +13,7 @@ export const Hero = ({ item, onDetail }) => {
     const navigation = useNavigation()
     const [loading, setLoading] = useState(true)
     const [isFavorite, setIsFavorite] = useState(false)
+    const [showFavoriteModal, setShowFavoriteModal] = useState(null)
 
     const { addFavorite, getFavorites, removeFavorite } = useFavorites()
 
@@ -21,8 +22,7 @@ export const Hero = ({ item, onDetail }) => {
     const checkIsfavorite = async () => {
         setLoading(true)
         const favorites = await getFavorites()
-        const isInfavorite =  favorites.filter((fv) => fv.id === item.id && fv.type === item.type)
-        console.log({isInfavorite})
+        const isInfavorite = favorites.filter((fv) => fv.id === item.id && fv.type === item.type)
         setIsFavorite(isInfavorite.length > 0)
         setLoading(false)
     }
@@ -31,14 +31,24 @@ export const Hero = ({ item, onDetail }) => {
         checkIsfavorite()
     }, [])
 
-    const addDatatoFavorite = async () => {
-        const result = await addFavorite(item)
-        checkIsfavorite()
+    const closeFavoriteModal = () => {
+       setTimeout(() => {
+        setShowFavoriteModal(null)
+       }, 1000) 
     }
 
-    const removeDataFromFavorite = async() => {
-        const result = await removeFavorite(item)
+    const addDatatoFavorite = async () => {
+        const result = await addFavorite(item)
+        setShowFavoriteModal('added')
         checkIsfavorite()
+        closeFavoriteModal()
+    }
+
+    const removeDataFromFavorite = async () => {
+        const result = await removeFavorite(item)
+        setShowFavoriteModal('removed')
+        checkIsfavorite()
+        closeFavoriteModal()
     }
 
     const onPressWatch = () => {
@@ -68,14 +78,23 @@ export const Hero = ({ item, onDetail }) => {
                         {subtitle}
                     </Text>
                     <ButtonsView>
-                        <IconButton onPress={() => isFavorite ? removeDataFromFavorite() : addDatatoFavorite()} label={isFavorite ? 'Rem. Favoritos': 'Add Favoritos'} iconName={isFavorite ? 'remove-circle-outline' : 'add-circle-outline'} />
-                        <PlayButton onPress={() => onPressWatch()}/>
+                        <IconButton onPress={() => isFavorite ? removeDataFromFavorite() : addDatatoFavorite()} label={isFavorite ? 'Rem. Favoritos' : 'Add Favoritos'} iconName={isFavorite ? 'remove-circle-outline' : 'add-circle-outline'} />
+                        <PlayButton onPress={() => onPressWatch()} />
                         {
                             !onDetail && <IconButton onPress={() => onPressDetail()} label='Saiba mais' iconName='information-circle-outline' />
                         }
                     </ButtonsView>
                 </HeroGradient>
             </HeroImageBackground>
+            {
+                !!showFavoriteModal && (
+                    <FavoritesStateModal
+                        type={showFavoriteModal}
+                        visible={!!showFavoriteModal}
+                        onClose={() => setShowFavoriteModal(null)}
+                    />
+                )
+            }
         </HeroContainer>
     )
 }

@@ -5,7 +5,6 @@ export const useGetData = () => {
     const getFilms = async() => {
         try {
             const response = await api.get('/films')
-            console.log('Filmes -->',response)
             return response.data
         } catch (error) {
             console.log({error})
@@ -16,7 +15,6 @@ export const useGetData = () => {
     const getCharacters = async() => {
         try {
             const response = await api.get('/characters')
-            console.log('Personagens -->',response)
             return response.data
         } catch (error) {
             console.log({error})
