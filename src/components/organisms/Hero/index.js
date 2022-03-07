@@ -46,6 +46,11 @@ export const Hero = ({ item, onDetail }) => {
         navigation.navigate('Watch')
     }
 
+    const onPressDetail = () => {
+        setSelectedData(item)
+        navigation.navigate('Detail')
+    }
+
     return (
         <HeroContainer>
             <HeroImageBackground source={{ uri: image_url }}>
@@ -66,7 +71,7 @@ export const Hero = ({ item, onDetail }) => {
                         <IconButton onPress={() => isFavorite ? removeDataFromFavorite() : addDatatoFavorite()} label={isFavorite ? 'Rem. Favoritos': 'Add Favoritos'} iconName={isFavorite ? 'remove-circle-outline' : 'add-circle-outline'} />
                         <PlayButton onPress={() => onPressWatch()}/>
                         {
-                            !onDetail && <IconButton label='Saiba mais' iconName='information-circle-outline' />
+                            !onDetail && <IconButton onPress={() => onPressDetail()} label='Saiba mais' iconName='information-circle-outline' />
                         }
                     </ButtonsView>
                 </HeroGradient>
