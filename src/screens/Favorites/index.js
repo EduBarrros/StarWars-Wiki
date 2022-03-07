@@ -4,7 +4,6 @@ import { useFavorites } from '~/services/hooks'
 
 export const FavoritesScreen = ({ navigation }) => {
 
-
     const [favoritesList, setFavoritesList] = useState([])
     const { getFavorites } = useFavorites()
 
@@ -25,7 +24,8 @@ export const FavoritesScreen = ({ navigation }) => {
             <Text fontFamily='bold' size={28} mb={24}>
                 Favoritos
             </Text>
-            <GridList 
+            <GridList
+                type='favorites'
                 data={favoritesList}
             />
         </ScreenScrollContainer>
